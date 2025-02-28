@@ -36,10 +36,10 @@ export default class Server {
       },
     };
     this.io = new SocketIOServer(this.server, socketOptions);
-    // this.initializeMiddlewares();
-    // this.routes();
-    // this.handleErrors();
-    // this.connectDatabase();
+    this.initializeMiddlewares();
+    this.routes();
+    this.handleErrors();
+    this.connectDatabase();
     // this.initializeSocket();
   }
 
@@ -89,6 +89,7 @@ export default class Server {
       console.log('    \\~(*)~/');
       console.log('     /___\\');
       console.log('Welcome to the enchanted forest of code!');
+      console.log(process.env.MONGO_URL);
     });
   }
 }

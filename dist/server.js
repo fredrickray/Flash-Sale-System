@@ -38,10 +38,10 @@ class Server {
             },
         };
         this.io = new socket_io_1.Server(this.server, socketOptions);
-        // this.initializeMiddlewares();
-        // this.routes();
-        // this.handleErrors();
-        // this.connectDatabase();
+        this.initializeMiddlewares();
+        this.routes();
+        this.handleErrors();
+        this.connectDatabase();
         // this.initializeSocket();
     }
     initializeMiddlewares() {
@@ -86,6 +86,7 @@ class Server {
             console.log('    \\~(*)~/');
             console.log('     /___\\');
             console.log('Welcome to the enchanted forest of code!');
+            console.log(process.env.MONGO_URL);
         });
     }
 }

@@ -27,9 +27,6 @@ const connectDB = async () => {
             await mongoose_1.default.connect(dbUrl);
             console.log(`Connected to MongoDB Successfully`);
         }
-        // const dbUrl = process.env.NODE_ENV === 'test' ? Config.mongo.testUrl as string : Config.mongo.url as string
-        // await mongoose.connect(dbUrl);
-        console.log(`Connected to MongoDB Successfully`);
     }
     catch (error) {
         console.error(`Error: ${error.message}`);
