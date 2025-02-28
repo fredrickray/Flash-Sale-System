@@ -1,15 +1,14 @@
 {
-  "name": "flash-sale-syatem",
+  "name": "flash-sale-system",
   "version": "1.0.0",
   "description": "The system handles real-time inventory updates, ensure data consistency etc during a flash sale event that occurs multiple times a month.",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "tsc && tsc-alias",
-    "start": "node --max-old-space-size=4096 -r tsconfig-paths/register dist/index.js",
-    "predev": "npm run seed",
+    "start": "node -r tsconfig-paths/register dist/index.js",
     "dev": "nodemon --watch src/ --exec \"npm run serve\" -e ts",
-    "serve": "npm run build && node --max-old-space-size=4096 -r tsconfig-paths/register dist/index.js",
+    "serve": "npm run build && node -r tsconfig-paths/register dist/index.js",
     "build": "npm run clean && tsc && tsc-alias",
     "clean": "rm -rf dist && mkdir dist",
     "lint": "eslint .",
@@ -32,6 +31,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.1.9",
     "socket.io": "^4.8.1"
   },
@@ -49,5 +49,8 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.25.0"
+  },
+  "resolutions": {
+    "@types/mime": "3.0.4"
   }
 }

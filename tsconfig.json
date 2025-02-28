@@ -5,31 +5,14 @@
     "module": "commonjs",
     // "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
-    // "paths": {
-    //   "@middlewares/*": ["src/middlewares/*"],
-    //   "@config/*": ["src/config/*"],
-    //   "@auth/*": ["src/v1/feat/auth/*"],
-    //   "@workstream/*": ["src/v1/feat/workstream/*"],
-    //   "@case/*": ["src/v1/feat/case/*"],
-    //   "@caseType/*": ["src/v1/feat/case-type/*"],
-    //   "@caseStatus/*": ["src/v1/feat/case-status/*"],
-    //   "@schedule/*": ["src/v1/feat/schedule/*"],
-    //   "@project/*": ["src/v1/feat/project/*"],
-    //   "@chat/*": ["src/v1/feat/communication/chat/*"],
-    //   "@management/*": ["src/v1/feat/management/*"],
-    //   "@contact/*": ["src/v1/feat/management/contacts/*"],
-    //   "@invitation/*": ["src/v1/feat/management/invitation/*"],
-    //   "@users/*": ["src/v1/feat/users/*"],
-    //   "@company/*": ["src/v1/feat/company/*"],
-    //   "@uac/*": ["src/v1/feat/user-access-control/*"],
-    //   "@attachment/*": ["src/v1/feat/attachments/*"],
-    //   "@notification/*": ["src/v1/feat/notification/*"],
-    //   "@stakeholder/*": ["src/v1/feat/stakeholder/*"],
-    //   "@industry/*": ["src/v1/feat/industry/*"],
-    //   "@utils/*": ["src/utils/*"],
-    //   "@mail/*": ["src/services/mail/*"],
-    //   "@validations/*": ["src/validations/*"]
-    // },
+    "paths": {
+      "@middlewares/*": ["src/middlewares/*"],
+      "@config/*": ["src/config/*"]
+      //   "@auth/*": ["src/v1/feat/auth/*"],
+      //   "@utils/*": ["src/utils/*"],
+      //   "@mail/*": ["src/services/mail/*"],
+      //   "@validations/*": ["src/validations/*"]
+    },
     "outDir": "./dist",
     "rootDir": "./src",
     "typeRoots": ["./@types", "./node_modules/@types"],
@@ -41,6 +24,6 @@
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*"],
+  //   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
