@@ -1,0 +1,53 @@
+{
+  "name": "flash-sale-syatem",
+  "version": "1.0.0",
+  "description": "The system handles real-time inventory updates, ensure data consistency etc during a flash sale event that occurs multiple times a month.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "tsc && tsc-alias",
+    "start": "node --max-old-space-size=4096 -r tsconfig-paths/register dist/index.js",
+    "predev": "npm run seed",
+    "dev": "nodemon --watch src/ --exec \"npm run serve\" -e ts",
+    "serve": "npm run build && node --max-old-space-size=4096 -r tsconfig-paths/register dist/index.js",
+    "build": "npm run clean && tsc && tsc-alias",
+    "clean": "rm -rf dist && mkdir dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fredrickray/Flash-Sale-System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fredrickray/Flash-Sale-System/issues"
+  },
+  "homepage": "https://github.com/fredrickray/Flash-Sale-System#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.2",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.11",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.25.0"
+  }
+}
