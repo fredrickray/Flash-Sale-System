@@ -7,9 +7,9 @@
     "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
       "@middlewares/*": ["src/middlewares/*"],
-      "@config/*": ["src/config/*"]
-      //   "@auth/*": ["src/v1/feat/auth/*"],
-      //   "@utils/*": ["src/utils/*"],
+      "@config/*": ["src/config/*"],
+      "@purchase/*": ["src/v1/feat/purchase/*"],
+      "@flash-sale/*": ["src/v1/feat/flash-sale/*"]
       //   "@mail/*": ["src/services/mail/*"],
       //   "@validations/*": ["src/validations/*"]
     },
