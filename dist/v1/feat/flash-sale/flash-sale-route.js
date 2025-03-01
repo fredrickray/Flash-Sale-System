@@ -9,5 +9,8 @@ const flashSaleRouter = (0, express_1.Router)();
 flashSaleRouter
     .route('/')
     .post(flash_sale_controller_1.default.createFlashSale.bind(flash_sale_controller_1.default))
+    .get(flash_sale_controller_1.default.getFlashSales.bind(flash_sale_controller_1.default));
+flashSaleRouter
+    .route('/:flashSaleId')
     .get(flash_sale_controller_1.default.getFlashSaleById.bind(flash_sale_controller_1.default));
 exports.default = flashSaleRouter;

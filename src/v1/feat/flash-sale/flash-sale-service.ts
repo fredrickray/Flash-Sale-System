@@ -16,4 +16,9 @@ export default class FlashSaleService {
     }
     return flashSale;
   }
+
+  static async getFlashSales(): Promise<IFlashSaleDocument[]> {
+    const flashSales = await FlashSaleModel.find();
+    return flashSales;
+  }
 }

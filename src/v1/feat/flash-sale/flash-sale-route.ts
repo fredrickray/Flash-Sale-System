@@ -6,6 +6,9 @@ const flashSaleRouter = Router();
 flashSaleRouter
   .route('/')
   .post(FlashSaleController.createFlashSale.bind(FlashSaleController))
-  .get(FlashSaleController.getFlashSaleById.bind(FlashSaleController));
+  .get(FlashSaleController.getFlashSales.bind(FlashSaleController));
 
+flashSaleRouter
+  .route('/:flashSaleId')
+  .get(FlashSaleController.getFlashSaleById.bind(FlashSaleController));
 export default flashSaleRouter;

@@ -38,4 +38,17 @@ export default class FlashSaleController {
       next(error);
     }
   }
+
+  static async getFlashSales(req: Request, res: Response, next: NextFunction) {
+    try {
+      const flashSales = await FlashSaleService.getFlashSales();
+      res.status(200).json({
+        success: true,
+        message: 'Flash sales retrieved successfully',
+        data: flashSales,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

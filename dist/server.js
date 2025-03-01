@@ -9,6 +9,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const socket_io_1 = require("socket.io");
 const cors_1 = __importDefault(require("cors"));
 const error_middleware_1 = require("./middlewares/error-middleware");
+// import indexRouter from './v1/routes';
+const index_1 = __importDefault(require("./v1/routes/index"));
 const db_1 = require("./config/db");
 const corsOptions = {
     //   origin: Config.Cors.origin,
@@ -61,7 +63,7 @@ class Server {
                 message: 'Server initialized and ready for action!',
             });
         });
-        // this.app.use('/v1/api', indexRouter);
+        this.app.use('/v1/api', index_1.default);
     }
     initializeSocket() {
         this.io.on('connection', (socket) => {

@@ -34,5 +34,18 @@ class FlashSaleController {
             next(error);
         }
     }
+    static async getFlashSales(req, res, next) {
+        try {
+            const flashSales = await flash_sale_service_1.default.getFlashSales();
+            res.status(200).json({
+                success: true,
+                message: 'Flash sales retrieved successfully',
+                data: flashSales,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.default = FlashSaleController;

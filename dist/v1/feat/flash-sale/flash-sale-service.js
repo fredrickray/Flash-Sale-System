@@ -14,5 +14,9 @@ class FlashSaleService {
         }
         return flashSale;
     }
+    static async getFlashSales() {
+        const flashSales = await flash_sale_model_1.FlashSaleModel.find();
+        return flashSales;
+    }
 }
 exports.default = FlashSaleService;

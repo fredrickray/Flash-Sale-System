@@ -65,7 +65,7 @@ export default class Server {
         message: 'Server initialized and ready for action!',
       });
     });
-    // this.app.use('/v1/api', indexRouter);
+    this.app.use('/v1/api', indexRouter);
   }
 
   initializeSocket() {
