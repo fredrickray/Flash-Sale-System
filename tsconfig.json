@@ -9,9 +9,9 @@
       "@middlewares/*": ["src/middlewares/*"],
       "@config/*": ["src/config/*"],
       "@purchase/*": ["src/v1/feat/purchase/*"],
-      "@flash-sale/*": ["src/v1/feat/flash-sale/*"]
-      //   "@mail/*": ["src/services/mail/*"],
-      //   "@validations/*": ["src/validations/*"]
+      "@flash-sale/*": ["src/v1/feat/flash-sale/*"],
+      "@user/*": ["src/v1/feat/user/*"],
+      "@auth/*": ["src/v1/feat/auth/*"]
     },
     "outDir": "./dist",
     "rootDir": "./src",
