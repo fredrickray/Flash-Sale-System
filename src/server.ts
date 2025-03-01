@@ -5,7 +5,10 @@ import { Server as SocketIOServer, ServerOptions } from 'socket.io';
 import cors from 'cors';
 import { errorHandler, routeNotFound } from '@middlewares/error-middleware';
 import Config from '@config/dotenv-config';
+// import indexRouter from './v1/routes';
+import indexRouter from './v1/routes/index';
 import { connectDB } from '@config/db';
+
 const corsOptions = {
   //   origin: Config.Cors.origin,
   optionsSuccessStatus: 200,
