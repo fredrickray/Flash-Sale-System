@@ -9,7 +9,6 @@ const mongoose_paginate_v2_1 = __importDefault(require("mongoose-paginate-v2"));
 const flashSaleSchema = new mongoose_1.Schema({
     product: { type: String, required: true },
     totalUnit: { type: Number, required: true, default: 200 },
-    remainingUnit: { type: Number },
     startTime: { type: Date },
     endTime: { type: Date },
     isActive: { type: Boolean },

@@ -14,24 +14,20 @@ export default class PurchaseService {
     const session = await mongoose.startSession();
     session.startTransaction();
     console.log('Raeched here');
+    console.log('user', user);
     try {
       const productExist = await FlashSaleModel.findById(product);
       if (!productExist) throw new ResourceNotFound('Product not found');
 
       if (!productExist.isActive) throw new BadRequest('Product is not active');
 
-      if (productExist.totalUnit < payload.quantity) {
-        throw new BadRequest('Product is out of stock');
-      }
-      // productExist.remainingUnit -= payload.quantity;
+      if (productExist.totalUnit < payload.quantity)
+        throw new BadRequest('Product unit left is less than quantity');
+
+      productExist.totalUnit -= payload.quantity;
       await productExist.save({ session });
-      console.log('Here');
       const purchase = await PurchaseModel.create(
-        {
-          ...payload,
-          userId: user._id,
-          productId: product,
-        },
+        [{ ...payload, userId: user._id, productId: product }],
         { session }
       );
       await session.commitTransaction();

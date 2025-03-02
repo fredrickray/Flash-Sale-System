@@ -2,8 +2,7 @@ import { Types } from 'mongoose';
 
 export interface IFlashSale {
   product: string;
-  totalUnit: Number;
-  remainingUnit: Number;
+  totalUnit: number;
   startTime: Date;
   endTime: Date;
   isActive: false;
