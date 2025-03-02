@@ -3,7 +3,7 @@ import { PurchaseModel } from './purchase-model';
 import { IPurchaseDocument } from './purchase-type';
 import mongoose, { Types } from 'mongoose';
 import { IUserDocument } from '@user/user-type';
-import { FlashSaleModel } from '@flash-sale/flash-sale-model';
+import { ProductModel } from '@product/product-model';
 
 export default class PurchaseService {
   public static async createPurchase(
@@ -16,7 +16,7 @@ export default class PurchaseService {
     console.log('Raeched here');
     console.log('user', user);
     try {
-      const productExist = await FlashSaleModel.findById(product);
+      const productExist = await ProductModel.findById(product);
       if (!productExist) throw new ResourceNotFound('Product not found');
 
       if (!productExist.isActive) throw new BadRequest('Product is not active');

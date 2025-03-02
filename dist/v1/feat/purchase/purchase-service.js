@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const error_middleware_1 = require("../../../middlewares/error-middleware");
 const purchase_model_1 = require("./purchase-model");
 const mongoose_1 = __importDefault(require("mongoose"));
-const flash_sale_model_1 = require("../flash-sale/flash-sale-model");
+const product_model_1 = require("../product/product-model");
 class PurchaseService {
     static async createPurchase(product, payload, user) {
         const session = await mongoose_1.default.startSession();
@@ -14,7 +14,7 @@ class PurchaseService {
         console.log('Raeched here');
         console.log('user', user);
         try {
-            const productExist = await flash_sale_model_1.FlashSaleModel.findById(product);
+            const productExist = await product_model_1.ProductModel.findById(product);
             if (!productExist)
                 throw new error_middleware_1.ResourceNotFound('Product not found');
             if (!productExist.isActive)
