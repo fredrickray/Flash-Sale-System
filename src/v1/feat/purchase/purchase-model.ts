@@ -7,8 +7,8 @@ const purchaseSchema = new Schema<IPurchaseDocument>(
     productId: { type: Schema.Types.ObjectId, required: true },
     userId: { type: Schema.Types.ObjectId, required: true },
     quantity: { type: Number, required: true },
-    price: { type: Number, required: true },
-    status: { type: String, required: true },
+    // price: { type: Number, required: true },
+    // status: { type: String, required: true },
   },
   { timestamps: true }
 );
