@@ -9,8 +9,14 @@ export default class PurchaseController {
     next: NextFunction
   ) {
     try {
+      const authUser = req.authUser!;
+      const product = new Types.ObjectId(req.params.productId);
       const payload = req.body;
-      const purchase = await PurchaseService.createPurchase(payload);
+      const purchase = await PurchaseService.createPurchase(
+        product,
+        payload,
+        authUser
+      );
       res.status(201).json({
         success: true,
         message: 'Purchase created successfully',

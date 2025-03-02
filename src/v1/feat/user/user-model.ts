@@ -9,6 +9,7 @@ const userSchema = new Schema<IUserDocument>(
     firstName: { type: String, required: true },
     lastName: { type: String },
     password: { type: String },
+    reAuth: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

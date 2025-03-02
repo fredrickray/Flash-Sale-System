@@ -8,8 +8,10 @@ const mongoose_1 = require("mongoose");
 class PurchaseController {
     static async createPurchase(req, res, next) {
         try {
+            const authUser = req.authUser;
+            const product = new mongoose_1.Types.ObjectId(req.params.productId);
             const payload = req.body;
-            const purchase = await purchase_service_1.default.createPurchase(payload);
+            const purchase = await purchase_service_1.default.createPurchase(product, payload, authUser);
             res.status(201).json({
                 success: true,
                 message: 'Purchase created successfully',

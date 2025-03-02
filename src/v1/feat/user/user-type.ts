@@ -5,6 +5,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   password: string;
+  reAuth?: boolean;
   comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 
