@@ -6,7 +6,6 @@ const flashSaleSchema = new Schema<IFlashSaleDocument>(
   {
     product: { type: String, required: true },
     totalUnit: { type: Number, required: true, default: 200 },
-    remainingUnit: { type: Number },
     startTime: { type: Date },
     endTime: { type: Date },
     isActive: { type: Boolean },

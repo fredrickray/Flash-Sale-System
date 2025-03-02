@@ -13,6 +13,7 @@ const userSchema = new mongoose_1.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String },
     password: { type: String },
+    reAuth: { type: Boolean, default: false },
 }, { timestamps: true });
 userSchema.pre('save', async function (next) {
     const user = this;
