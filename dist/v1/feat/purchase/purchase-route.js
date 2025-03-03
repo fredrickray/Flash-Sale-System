@@ -21,5 +21,8 @@ exports.default = (io) => {
         .route('/:productId')
         .post(purchase_controller_1.default.createPurchase.bind(purchase_controller_1.default))
         .get(purchase_controller_1.default.getPurchaseById.bind(purchase_controller_1.default));
+    purchaseRouter
+        .route('/leaderboard')
+        .get(purchase_controller_1.default.getLeaderboard.bind(purchase_controller_1.default));
     return purchaseRouter;
 };

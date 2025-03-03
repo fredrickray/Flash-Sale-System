@@ -37,5 +37,18 @@ class PurchaseController {
             next(error);
         }
     }
+    static async getLeaderboard(req, res, next) {
+        try {
+            const leaderboard = await purchase_service_1.default.leaderboard();
+            res.status(200).json({
+                success: true,
+                message: 'Leaderboard retrieved successfully',
+                data: leaderboard,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.default = PurchaseController;

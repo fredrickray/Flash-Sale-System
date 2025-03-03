@@ -111,6 +111,35 @@ export default class PurchaseService {
     return purchase;
   }
 
+  public static async leaderboard() {
+    const leaderboard = await PurchaseModel.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user',
+        },
+      },
+      { $unwind: '$user' },
+      { $sort: { createdAt: 1 } },
+      {
+        $project: {
+          _id: 0,
+          rank: { $add: [1, { $indexOfArray: ['$userId', '$_id'] }] },
+          user: {
+            firstName: '$user.firstName',
+            lastName: '$user.lastName',
+          },
+          quantity: '$quantity',
+          createdAt: '$createdAt',
+        },
+      },
+    ]);
+
+    return leaderboard;
+  }
+
   private static async handleDisconnect(socket: Socket) {
     const user = await UserModel.findOne({ socketId: socket.id });
     if (user) {

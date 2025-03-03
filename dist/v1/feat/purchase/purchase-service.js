@@ -90,6 +90,33 @@ class PurchaseService {
             throw new error_middleware_1.ResourceNotFound('Purchase not found');
         return purchase;
     }
+    static async leaderboard() {
+        const leaderboard = await purchase_model_1.PurchaseModel.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'user',
+                },
+            },
+            { $unwind: '$user' },
+            { $sort: { createdAt: 1 } },
+            {
+                $project: {
+                    _id: 0,
+                    rank: { $add: [1, { $indexOfArray: ['$userId', '$_id'] }] },
+                    user: {
+                        firstName: '$user.firstName',
+                        lastName: '$user.lastName',
+                    },
+                    quantity: '$quantity',
+                    createdAt: '$createdAt',
+                },
+            },
+        ]);
+        return leaderboard;
+    }
     static async handleDisconnect(socket) {
         const user = await user_model_1.UserModel.findOne({ socketId: socket.id });
         if (user) {
