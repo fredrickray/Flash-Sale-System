@@ -11,7 +11,8 @@
       "@purchase/*": ["src/v1/feat/purchase/*"],
       "@product/*": ["src/v1/feat/product/*"],
       "@user/*": ["src/v1/feat/user/*"],
-      "@auth/*": ["src/v1/feat/auth/*"]
+      "@auth/*": ["src/v1/feat/auth/*"],
+      "@validations/*": ["src/validations/*"]
     },
     "outDir": "./dist",
     "rootDir": "./src",
