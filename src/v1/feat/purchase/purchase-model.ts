@@ -10,7 +10,10 @@ const purchaseSchema = new Schema<IPurchaseDocument>(
     // price: { type: Number, required: true },
     // status: { type: String, required: true },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    optimisticConcurrency: true,
+  }
 );
 
 purchaseSchema.plugin(paginate);

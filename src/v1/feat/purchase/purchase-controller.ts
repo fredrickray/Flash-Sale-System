@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import PurchaseService from './purchase-service';
 import { Types } from 'mongoose';
+import { Server } from 'socket.io';
 
 export default class PurchaseController {
   public static async createPurchase(
@@ -9,13 +10,15 @@ export default class PurchaseController {
     next: NextFunction
   ) {
     try {
+      const io: Server = req.app.get('io');
       const authUser = req.authUser!;
       const product = new Types.ObjectId(req.params.productId);
       const payload = req.body;
       const purchase = await PurchaseService.createPurchase(
         product,
         payload,
-        authUser
+        authUser,
+        io
       );
       res.status(201).json({
         success: true,
