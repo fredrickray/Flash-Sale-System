@@ -6,6 +6,7 @@ import { ServerError } from '@middlewares/error-middleware';
 const userSchema = new Schema<IUserDocument>(
   {
     email: { type: String, required: true, unique: true, index: true },
+    socketId: { type: String },
     firstName: { type: String, required: true },
     lastName: { type: String },
     password: { type: String },
@@ -37,6 +38,7 @@ userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;
   delete user.__v;
+  delete user.socketId;
   return user;
 };
 

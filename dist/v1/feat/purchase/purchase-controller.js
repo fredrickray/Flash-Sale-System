@@ -8,10 +8,11 @@ const mongoose_1 = require("mongoose");
 class PurchaseController {
     static async createPurchase(req, res, next) {
         try {
+            const io = req.app.get('io');
             const authUser = req.authUser;
             const product = new mongoose_1.Types.ObjectId(req.params.productId);
             const payload = req.body;
-            const purchase = await purchase_service_1.default.createPurchase(product, payload, authUser);
+            const purchase = await purchase_service_1.default.createPurchase(product, payload, authUser, io);
             res.status(201).json({
                 success: true,
                 message: 'Purchase created successfully',
@@ -30,6 +31,19 @@ class PurchaseController {
                 success: true,
                 message: 'Purchase retrieved successfully',
                 data: purchase,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    static async getLeaderboard(req, res, next) {
+        try {
+            const leaderboard = await purchase_service_1.default.leaderboard();
+            res.status(200).json({
+                success: true,
+                message: 'Leaderboard retrieved successfully',
+                data: leaderboard,
             });
         }
         catch (error) {

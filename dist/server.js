@@ -11,6 +11,7 @@ const cors_1 = __importDefault(require("cors"));
 const error_middleware_1 = require("./middlewares/error-middleware");
 // import indexRouter from './v1/routes';
 const index_1 = __importDefault(require("./v1/routes/index"));
+const purchase_service_1 = __importDefault(require("./v1/feat/purchase/purchase-service"));
 const db_1 = require("./config/db");
 const corsOptions = {
     //   origin: Config.Cors.origin,
@@ -41,10 +42,10 @@ class Server {
         };
         this.io = new socket_io_1.Server(this.server, socketOptions);
         this.initializeMiddlewares();
+        this.initializeSocket();
         this.routes();
         this.handleErrors();
         this.connectDatabase();
-        // this.initializeSocket();
     }
     initializeMiddlewares() {
         this.app.use(body_parser_1.default.urlencoded({ extended: true }));
@@ -63,10 +64,11 @@ class Server {
                 message: 'Server initialized and ready for action!',
             });
         });
-        this.app.use('/v1/api', index_1.default);
+        this.app.use('/v1/api', (0, index_1.default)(this.io));
     }
     initializeSocket() {
         this.io.on('connection', (socket) => {
+            purchase_service_1.default.initialize(socket, this.io);
             //   ChatSocketHandler.initialize(socket, this.io);
         });
     }

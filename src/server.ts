@@ -7,6 +7,7 @@ import { errorHandler, routeNotFound } from '@middlewares/error-middleware';
 import Config from '@config/dotenv-config';
 // import indexRouter from './v1/routes';
 import indexRouter from './v1/routes/index';
+import PurchaseService from '@purchase/purchase-service';
 import { connectDB } from '@config/db';
 
 const corsOptions = {
@@ -40,10 +41,10 @@ export default class Server {
     };
     this.io = new SocketIOServer(this.server, socketOptions);
     this.initializeMiddlewares();
+    this.initializeSocket();
     this.routes();
     this.handleErrors();
     this.connectDatabase();
-    // this.initializeSocket();
   }
 
   initializeMiddlewares() {
@@ -65,11 +66,12 @@ export default class Server {
         message: 'Server initialized and ready for action!',
       });
     });
-    this.app.use('/v1/api', indexRouter);
+    this.app.use('/v1/api', indexRouter(this.io));
   }
 
   initializeSocket() {
     this.io.on('connection', (socket) => {
+      PurchaseService.initialize(socket, this.io);
       //   ChatSocketHandler.initialize(socket, this.io);
     });
   }

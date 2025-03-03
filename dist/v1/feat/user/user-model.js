@@ -10,6 +10,7 @@ const dotenv_config_1 = __importDefault(require("../../../config/dotenv-config")
 const error_middleware_1 = require("../../../middlewares/error-middleware");
 const userSchema = new mongoose_1.Schema({
     email: { type: String, required: true, unique: true, index: true },
+    socketId: { type: String },
     firstName: { type: String, required: true },
     lastName: { type: String },
     password: { type: String },
@@ -35,6 +36,7 @@ userSchema.methods.toJSON = function () {
     const user = this.toObject();
     delete user.password;
     delete user.__v;
+    delete user.socketId;
     return user;
 };
 exports.UserModel = (0, mongoose_1.model)('User', userSchema);
