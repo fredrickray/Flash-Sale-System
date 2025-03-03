@@ -1,143 +1,36 @@
-# Flash Sale System - Backend API
+# Flash Sale System
 
-## Overview
-The Flash Sale System is a backend API built with Node.js, Express, and MongoDB to manage flash sale events efficiently. It supports:
+This project is a Flash Sale System that allows users to sign up, sign in, and participate in flash sales. The system includes features such as user authentication, product management, purchase transactions, and a leaderboard to track users' purchases.
 
-- **Real-time inventory updates**
-- **Transactional integrity to prevent over-purchasing**
-- **User authentication and security measures**
-- **Leaderboard to track successful purchases**
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+- [License](#license)
 
 ## Features
-- Start a flash sale with 200 units of stock
-- Restrict purchases based on stock availability
-- Prevent multiple purchases before the sale starts
-- Ensure data consistency and prevent race conditions
-- Provide a sorted leaderboard of successful purchases
 
-## Technologies Used
-- **Node.js & Express** - API framework
-- **MongoDB & Mongoose** - Database & ORM
-- **Dotenv** - Environment variable management
-- **JWT Authentication** - Secure user access
-- **WebSockets (Upcoming)** - Real-time stock updates
+- User authentication (sign up, sign in)
+- Product management
+- Purchase transactions with MongoDB transactions
+- Real-time stock updates using Socket.io
+- Leaderboard to track users' purchases
 
----
-## Installation Guide
+## Prerequisites
 
-### 1. Clone the Repository
-```sh
-git clone https://github.com/yourusername/flash-sale-backend.git
-```
+Before you begin, ensure you have met the following requirements:
 
-### 2. Navigate to the Project Directory
-```sh
-cd flash-sale-backend
-```
+- Node.js (v14.x or later)
+- npm (v6.x or later)
+- MongoDB (v4.x or later)
 
-### 3. Install Dependencies
-```sh
-npm install
-```
+## Installation
 
-### 4. Set Up Environment Variables
-Create a `.env` file in the root directory and add the following:
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
+1. Clone the repository:
 
-### 5. Run the Application
-Start the server in development mode:
-```sh
-npm run dev
-```
-
-For production:
-```sh
-npm start
-```
-
----
-## API Endpoints
-
-### 1. Start a Flash Sale
-**POST** `/start-sale`
-#### Request Body:
-```json
-{
-  "productId": "123456",
-  "startTime": "2025-03-03T12:00:00Z"
-}
-```
-#### Response:
-```json
-{
-  "_id": "sale_id",
-  "productId": "123456",
-  "stock": 200,
-  "startTime": "2025-03-03T12:00:00Z",
-  "isActive": true
-}
-```
-
-### 2. Purchase a Product
-**POST** `/purchase`
-#### Request Body:
-```json
-{
-  "userId": "user123",
-  "productId": "123456",
-  "quantity": 1
-}
-```
-#### Response:
-```json
-{
-  "_id": "purchase_id",
-  "userId": "user123",
-  "productId": "123456",
-  "quantity": 1,
-  "createdAt": "2025-03-03T12:05:00Z"
-}
-```
-
-### 3. Get Leaderboard
-**GET** `/leaderboard`
-#### Response:
-```json
-[
-  {
-    "userId": "user123",
-    "productId": "123456",
-    "quantity": 1,
-    "createdAt": "2025-03-03T12:05:00Z"
-  }
-]
-```
-
----
-## Security & Best Practices
-- JWT Authentication for API security
-- Transactions to ensure data integrity
-- Validation middleware for request sanitization
-- Rate limiting to prevent abuse
-
----
-## Future Enhancements
-- **WebSocket integration** for real-time inventory updates
-- **Admin dashboard** for flash sale management
-- **Optimized caching** for leaderboard queries
-
----
-## Contributing
-1. Fork the repository
-2. Create a new branch (`feature-branch`)
-3. Commit your changes
-4. Push to your fork and submit a Pull Request
-
----
-## License
-This project is licensed under the MIT License.
-
+   ```sh
+   git clone https://github.com/your-username/flash-sale-system.git
