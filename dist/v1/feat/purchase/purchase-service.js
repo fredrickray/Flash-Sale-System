@@ -103,18 +103,53 @@ class PurchaseService {
             { $unwind: '$user' },
             { $sort: { createdAt: 1 } },
             {
+                $group: {
+                    _id: null,
+                    purchases: { $push: '$$ROOT' },
+                },
+            },
+            { $unwind: '$purchases' },
+            {
                 $project: {
                     _id: 0,
-                    rank: { $add: [1, { $indexOfArray: ['$userId', '$_id'] }] },
                     user: {
-                        firstName: '$user.firstName',
-                        lastName: '$user.lastName',
+                        firstName: '$purchases.user.firstName',
+                        lastName: '$purchases.user.lastName',
                     },
-                    quantity: '$quantity',
-                    createdAt: '$createdAt',
+                    quantity: '$purchases.quantity',
+                    createdAt: '$purchases.createdAt',
+                },
+            },
+            {
+                $sort: { createdAt: 1 },
+            },
+            {
+                $group: {
+                    _id: null,
+                    purchases: { $push: '$$ROOT' },
+                },
+            },
+            {
+                $unwind: {
+                    path: '$purchases',
+                    includeArrayIndex: 'rank',
+                },
+            },
+            {
+                $project: {
+                    _id: 0,
+                    rank: { $add: ['$rank', 1] },
+                    user: '$purchases.user',
+                    quantity: '$purchases.quantity',
+                    createdAt: '$purchases.createdAt',
                 },
             },
         ]);
+        // const leaderboard = await PurchaseModel.find()
+        //   .sort({ createdAt: 1 })
+        //   .populate('userId', 'firstName lastName');
+        // // .select('quantity createdAt');
+        // // .populate('user', 'firstName lastName');
         return leaderboard;
     }
     static async handleDisconnect(socket) {
