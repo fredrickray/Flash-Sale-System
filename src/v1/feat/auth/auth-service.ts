@@ -5,13 +5,17 @@ import { ISignIn, ISignUp, IToken, TokenPayload, TokenType } from './auth-type';
 import {
   BadRequest,
   Conflict,
+  InvalidInput,
   ResourceNotFound,
   Unauthorized,
 } from '@middlewares/error-middleware';
 import Config from '@config/dotenv-config';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { JwtPayload } from 'jsonwebtoken';
-import { Types } from 'mongoose';
+import {
+  signinValidationSchema,
+  signupValidationSchema,
+} from '@validations/auth-validation';
 export default class AuthService {
   private static JWT_OPTIONS: SignOptions = {
     issuer: Config.JWTHeader.issuer,
@@ -19,6 +23,13 @@ export default class AuthService {
     algorithm: Config.JWTHeader.algorithm,
   };
   static async signup(payload: ISignUp) {
+    const { error } = signupValidationSchema.validate(payload);
+    if (error) {
+      const errorMessages: string[] = error.details.map(
+        (detail) => detail.message
+      );
+      throw new InvalidInput(errorMessages.join(', '));
+    }
     const existingUser = await UserModel.findOne({ email: payload.email });
     if (existingUser) throw new Conflict('Email already exists');
 
@@ -27,6 +38,13 @@ export default class AuthService {
   }
 
   static async signin(payload: ISignIn) {
+    const { error } = signinValidationSchema.validate(payload);
+    if (error) {
+      const errorMessages: string[] = error.details.map(
+        (detail) => detail.message
+      );
+      throw new InvalidInput(errorMessages.join(', '));
+    }
     const user = await UserModel.findOne({ email: payload.email });
     if (!user) throw new Unauthorized('Invalid credentials');
 

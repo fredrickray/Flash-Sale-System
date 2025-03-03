@@ -17,13 +17,13 @@ export default (io: Server) => {
   });
 
   purchaseRouter
+    .route('/leaderboard')
+    .get(PurchaseController.getLeaderboard.bind(PurchaseController));
+
+  purchaseRouter
     .route('/:productId')
     .post(PurchaseController.createPurchase.bind(PurchaseController))
     .get(PurchaseController.getPurchaseById.bind(PurchaseController));
-
-  purchaseRouter
-    .route('/leaderboard')
-    .get(PurchaseController.getLeaderboard.bind(PurchaseController));
 
   return purchaseRouter;
 };

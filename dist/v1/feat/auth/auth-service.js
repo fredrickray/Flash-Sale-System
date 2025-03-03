@@ -8,6 +8,7 @@ const auth_type_1 = require("./auth-type");
 const error_middleware_1 = require("../../../middlewares/error-middleware");
 const dotenv_config_1 = __importDefault(require("../../../config/dotenv-config"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const auth_validation_1 = require("../../../validations/auth-validation");
 class AuthService {
     static JWT_OPTIONS = {
         issuer: dotenv_config_1.default.JWTHeader.issuer,
@@ -15,6 +16,11 @@ class AuthService {
         algorithm: dotenv_config_1.default.JWTHeader.algorithm,
     };
     static async signup(payload) {
+        const { error } = auth_validation_1.signupValidationSchema.validate(payload);
+        if (error) {
+            const errorMessages = error.details.map((detail) => detail.message);
+            throw new error_middleware_1.InvalidInput(errorMessages.join(', '));
+        }
         const existingUser = await user_model_1.UserModel.findOne({ email: payload.email });
         if (existingUser)
             throw new error_middleware_1.Conflict('Email already exists');
@@ -22,6 +28,11 @@ class AuthService {
         return user;
     }
     static async signin(payload) {
+        const { error } = auth_validation_1.signinValidationSchema.validate(payload);
+        if (error) {
+            const errorMessages = error.details.map((detail) => detail.message);
+            throw new error_middleware_1.InvalidInput(errorMessages.join(', '));
+        }
         const user = await user_model_1.UserModel.findOne({ email: payload.email });
         if (!user)
             throw new error_middleware_1.Unauthorized('Invalid credentials');
