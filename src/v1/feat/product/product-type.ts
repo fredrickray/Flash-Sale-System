@@ -1,8 +1,9 @@
 export interface IProduct {
   name: string;
   totalUnit: number;
-  startTime: Date;
-  endTime: Date;
+  startDate: Date;
+  startTime: string;
+  // endTime: Date;
   isActive: false;
 }
 

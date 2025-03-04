@@ -6,7 +6,8 @@ const productSchema = new Schema<IProductDocument>(
   {
     name: { type: String, required: true },
     totalUnit: { type: Number, required: true, default: 200 },
-    startTime: { type: Date },
+    startDate: { type: Date },
+    startTime: { type: String },
     isActive: { type: Boolean },
   },
   { timestamps: true }

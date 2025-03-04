@@ -51,4 +51,19 @@ export default class ProductController {
       next(error);
     }
   }
+
+  static async updateProduct(req: Request, res: Response, next: NextFunction) {
+    try {
+      const productId = new Types.ObjectId(req.params.id);
+      const payload = req.body;
+      const product = await ProductService.updateProduct(productId, payload);
+      res.status(200).json({
+        success: true,
+        message: 'Product updated successfully',
+        data: product,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
