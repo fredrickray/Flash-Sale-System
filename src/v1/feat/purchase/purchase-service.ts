@@ -7,13 +7,7 @@ import { ProductModel } from '@product/product-model';
 import { Server, Socket } from 'socket.io';
 import { UserModel } from '@user/user-model';
 
-interface UserMap {
-  [key: string]: string;
-}
-
 export default class PurchaseService {
-  // private static io: Server;
-
   static initialize(socket: Socket, io: Server) {
     // this.io = io;
     console.log(`New client connected: ${socket.id}`);
@@ -52,8 +46,6 @@ export default class PurchaseService {
         `${productExist.startDate.toISOString().split('T')[0]}T${productExist.startTime}:00.000Z`
       );
 
-      console.log('now', now);
-      console.log('startDateTime', startDateTime);
       if (now < startDateTime) throw new BadRequest('Flash sale is not active');
 
       if (!productExist.isActive) throw new BadRequest('Product is not active');
@@ -63,18 +55,6 @@ export default class PurchaseService {
 
       if (payload.quantity > 5)
         throw new BadRequest('Max purchase limit per transaction is 5');
-
-      // const updatedProduct = await ProductModel.findOneAndUpdate(
-      //   { _id: product, totalUnit: { $gte: payload.quantity } },
-      //   {
-      //     $inc: { totalUnit: -payload.quantity },
-      //     // $set: { version: productExist.__v + 1 },
-      //   },
-      //   { new: true, session }
-      // );
-
-      // if (!updatedProduct)
-      //   throw new BadRequest('Race condition detected, try again');
 
       productExist.totalUnit -= payload.quantity;
       await productExist.save({ session });
@@ -100,9 +80,7 @@ export default class PurchaseService {
     } catch (error) {
       if (session.inTransaction()) {
         await session.abortTransaction();
-        console.log('session aborted');
       }
-      // await session.abortTransaction();
       throw error;
     } finally {
       session.endSession();
@@ -171,12 +149,6 @@ export default class PurchaseService {
         },
       },
     ]);
-
-    // const leaderboard = await PurchaseModel.find()
-    //   .sort({ createdAt: 1 })
-    //   .populate('userId', 'firstName lastName');
-    // // .select('quantity createdAt');
-    // // .populate('user', 'firstName lastName');
 
     return leaderboard;
   }
