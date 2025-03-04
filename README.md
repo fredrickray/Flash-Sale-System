@@ -11,6 +11,7 @@ This project is a Flash Sale System that allows users to sign up, sign in, and p
 - [Running the Application](#run-the-application)
 - [API Endpoints](#api-endpoints)
 - [Postman](#postman-documentation-url)
+- [NOTE](#note)
 
 ## Features
 
@@ -127,7 +128,9 @@ Request Body:
 
 
 
-
+# NOTE
+### Things to note
+- Use the provided db url in the env example file
 
 
 
