@@ -47,5 +47,20 @@ class ProductController {
             next(error);
         }
     }
+    static async updateProduct(req, res, next) {
+        try {
+            const productId = new mongoose_1.Types.ObjectId(req.params.id);
+            const payload = req.body;
+            const product = await product_service_1.default.updateProduct(productId, payload);
+            res.status(200).json({
+                success: true,
+                message: 'Product updated successfully',
+                data: product,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.default = ProductController;
