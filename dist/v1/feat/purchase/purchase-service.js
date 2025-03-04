@@ -9,7 +9,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const product_model_1 = require("../product/product-model");
 const user_model_1 = require("../user/user-model");
 class PurchaseService {
-    // private static io: Server;
     static initialize(socket, io) {
         // this.io = io;
         console.log(`New client connected: ${socket.id}`);
@@ -37,8 +36,6 @@ class PurchaseService {
                 throw new error_middleware_1.ResourceNotFound('Product not found');
             const now = new Date();
             const startDateTime = new Date(`${productExist.startDate.toISOString().split('T')[0]}T${productExist.startTime}:00.000Z`);
-            console.log('now', now);
-            console.log('startDateTime', startDateTime);
             if (now < startDateTime)
                 throw new error_middleware_1.BadRequest('Flash sale is not active');
             if (!productExist.isActive)
@@ -47,16 +44,6 @@ class PurchaseService {
                 throw new error_middleware_1.BadRequest('Product unit left is less than quantity');
             if (payload.quantity > 5)
                 throw new error_middleware_1.BadRequest('Max purchase limit per transaction is 5');
-            // const updatedProduct = await ProductModel.findOneAndUpdate(
-            //   { _id: product, totalUnit: { $gte: payload.quantity } },
-            //   {
-            //     $inc: { totalUnit: -payload.quantity },
-            //     // $set: { version: productExist.__v + 1 },
-            //   },
-            //   { new: true, session }
-            // );
-            // if (!updatedProduct)
-            //   throw new BadRequest('Race condition detected, try again');
             productExist.totalUnit -= payload.quantity;
             await productExist.save({ session });
             const purchase = await purchase_model_1.PurchaseModel.create([{ ...payload, userId: user._id, productId: product }], { session });
@@ -78,9 +65,7 @@ class PurchaseService {
         catch (error) {
             if (session.inTransaction()) {
                 await session.abortTransaction();
-                console.log('session aborted');
             }
-            // await session.abortTransaction();
             throw error;
         }
         finally {
@@ -148,11 +133,6 @@ class PurchaseService {
                 },
             },
         ]);
-        // const leaderboard = await PurchaseModel.find()
-        //   .sort({ createdAt: 1 })
-        //   .populate('userId', 'firstName lastName');
-        // // .select('quantity createdAt');
-        // // .populate('user', 'firstName lastName');
         return leaderboard;
     }
     static async handleDisconnect(socket) {
