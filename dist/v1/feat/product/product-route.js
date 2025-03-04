@@ -12,5 +12,6 @@ productRouter
     .get(product_controller_1.default.getProducts.bind(product_controller_1.default));
 productRouter
     .route('/:productId')
-    .get(product_controller_1.default.getProduct.bind(product_controller_1.default));
+    .get(product_controller_1.default.getProduct.bind(product_controller_1.default))
+    .put(product_controller_1.default.updateProduct.bind(product_controller_1.default));
 exports.default = productRouter;

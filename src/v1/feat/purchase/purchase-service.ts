@@ -48,8 +48,13 @@ export default class PurchaseService {
       if (!productExist) throw new ResourceNotFound('Product not found');
 
       const now = new Date();
-      if (now < productExist.startTime)
-        throw new BadRequest('Flash sale is not active');
+      const startDateTime = new Date(
+        `${productExist.startDate.toISOString().split('T')[0]}T${productExist.startTime}:00.000Z`
+      );
+
+      console.log('now', now);
+      console.log('startDateTime', startDateTime);
+      if (now < startDateTime) throw new BadRequest('Flash sale is not active');
 
       if (!productExist.isActive) throw new BadRequest('Product is not active');
 
