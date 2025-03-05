@@ -15,7 +15,7 @@ This project is a Flash Sale System that allows users to sign up, sign in, and p
 
 ## Features
 
-- User authentication (sign up, sign in)
+- User authentication (signup, signin)
 - Product management
 - Purchase transactions with MongoDB transactions
 - Real-time stock updates using Socket.io
