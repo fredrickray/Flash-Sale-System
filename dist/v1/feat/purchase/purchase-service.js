@@ -36,8 +36,7 @@ class PurchaseService {
                 throw new error_middleware_1.ResourceNotFound('Product not found');
             const now = new Date();
             const startDateTime = new Date(`${productExist.startDate.toISOString().split('T')[0]}T${productExist.startTime}:00.000Z`);
-            if (now < startDateTime)
-                throw new error_middleware_1.BadRequest('Flash sale is not active');
+            // if (now < startDateTime) throw new BadRequest('Flash sale is not active');
             if (!productExist.isActive)
                 throw new error_middleware_1.BadRequest('Product is not active');
             if (productExist.totalUnit < payload.quantity)
