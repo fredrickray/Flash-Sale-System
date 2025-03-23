@@ -46,7 +46,7 @@ export default class PurchaseService {
         `${productExist.startDate.toISOString().split('T')[0]}T${productExist.startTime}:00.000Z`
       );
 
-      if (now < startDateTime) throw new BadRequest('Flash sale is not active');
+      // if (now < startDateTime) throw new BadRequest('Flash sale is not active');
 
       if (!productExist.isActive) throw new BadRequest('Product is not active');
 
